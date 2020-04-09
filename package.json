@@ -1,0 +1,32 @@
+{
+  "name": "react-test",
+  "version": "1.0.0",
+  "description": "This is a test",
+  "main": "index.js",
+  "scripts": {
+    "start": "parcel index.html",
+    "test": "jest --watchAll"
+  },
+  "keywords": [
+    "react"
+  ],
+  "author": "Simon Godoy",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/jest": "^25.1.4",
+    "@types/node": "^13.9.1",
+    "babel-preset-env": "^1.7.0",
+    "jest": "^25.1.0",
+    "parcel-bundler": "^1.12.4",
+    "ts-jest": "^25.2.1",
+    "typescript": "^3.8.3"
+  },
+  "jest": {
+    "verbose": true,
+    "testURL": "http://localhost:1234/"
+  },
+  "dependencies": {
+    "@types/crypto-js": "^3.1.43",
+    "crypto-js": "^4.0.0"
+  }
+}
