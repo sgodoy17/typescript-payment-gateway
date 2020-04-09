@@ -25,7 +25,4 @@ test("testItParsesCorrectlyACollectWithCredit", () => {
   let request = new CollectRequest(data);
 
   console.log(request);
-
-  let mobile = "+573015676565".toString();
-  //console.log(mobile.replace("+57", ""));
 });

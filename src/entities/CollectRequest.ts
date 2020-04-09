@@ -5,17 +5,40 @@ import { Person } from "./Person";
  * Class CollectRequest.
  */
 export class CollectRequest extends Entity {
+  /**
+   * @var {string}
+   */
   protected locale: string = "es_CO";
+
+  /**
+   * @var {any}
+   */
   protected payer: any;
+
+  /**
+   * @var {any}
+   */
   protected buyer: any;
+
+  /**
+   * @var {any}
+   */
   protected payment: any;
+
+  /**
+   * @var {any}
+   */
   protected instrument: any;
+
+  /**
+   * @var {any}
+   */
   protected additional: any;
 
   /**
    * CollectRequest constructor.
    *
-   * @param {any} data Object to load in this entity.
+   * @param {any} data
    */
   constructor(data: any = []) {
     super();
@@ -33,49 +56,49 @@ export class CollectRequest extends Entity {
   }
 
   /**
-   * @returns {string} Locale string value.
+   * @returns {string}
    */
   getLocale(): string {
     return this.locale;
   }
 
   /**
-   * @returns {any} Object of type Person.
+   * @returns {any}
    */
   getPayer(): any {
     return this.payer;
   }
 
   /**
-   * @returns {any} Object of type Person.
+   * @returns {any}
    */
   getBuyer(): any {
     return this.buyer;
   }
 
   /**
-   * @returns {any} Object of type Payment.
+   * @returns {any}
    */
   getPayment(): any {
     return this.payment;
   }
 
   /**
-   * @returns {any} Object of type Instrument.
+   * @returns {any}
    */
   getInstrument(): any {
     return this.instrument;
   }
 
   /**
-   * @returns {any} Object of type Additional.
+   * @returns {any}
    */
   getAdditional(): any {
     return this.additional;
   }
 
   /**
-   * @returns {any} Object that represents this instance.
+   * @returns {any}
    */
   toObject(): any {
     return this.arrayFilter({
