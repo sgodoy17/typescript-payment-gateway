@@ -1,20 +1,44 @@
 import { Entity } from "../contracts/Entity";
+import { PersonValidator } from "../validators/PersonValidator";
 
 /**
  * Class Address.
  */
 export class Address extends Entity {
+  /**
+   * @var {string}
+   */
   protected street: string;
+
+  /**
+   * @var {string}
+   */
   protected city: string;
+
+  /**
+   * @var {string}
+   */
   protected state: string;
+
+  /**
+   * @var {string}
+   */
   protected postalCode: string;
+
+  /**
+   * @var {string}
+   */
   protected country: string;
-  protected phone: string;
+
+  /**
+   * @var {any}
+   */
+  protected phone: any;
 
   /**
    * Address constructor.
    *
-   * @param data
+   * @param {any} data
    */
   constructor(data: any = []) {
     super();
@@ -30,58 +54,60 @@ export class Address extends Entity {
   }
 
   /**
-   * @return string
+   * @returns {string}
    */
   getStreet(): string {
     return this.street;
   }
 
   /**
-   * @return string
+   * @returns {string}
    */
   getCity(): string {
     return this.city;
   }
 
   /**
-   * @return string
+   * @returns {string}
    */
   getState(): string {
     return this.state;
   }
 
   /**
-   * @return string
+   * @returns {string}
    */
   getPostalCode(): string {
     return this.postalCode;
   }
 
   /**
-   * @return string
+   * @returns {string}
    */
   getCountry(): string {
     return this.country;
   }
 
   /**
-   * @return string
+   * @returns {any}
    */
-  getPhone(): string {
-    return this.phone;
+  getPhone(): any {
+    return this.phone !== null
+      ? PersonValidator.normalizePhone(this.phone)
+      : null;
   }
 
   /**
-   * @return any
+   * @returns {any}
    */
   toObject(): any {
-    return {
+    return this.arrayFilter({
       street: this.getStreet(),
       city: this.getCity(),
       state: this.getState(),
       postalCode: this.getPostalCode(),
       country: this.getCountry(),
       phone: this.getPhone(),
-    };
+    });
   }
 }

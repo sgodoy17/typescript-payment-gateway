@@ -6,19 +6,50 @@ import { PersonValidator } from "../validators/PersonValidator";
  * Class Person.
  */
 export class Person extends Entity {
+  /**
+   * @var {string}
+   */
   protected document: string;
+
+  /**
+   * @var {string}
+   */
   protected documentType: string;
+
+  /**
+   * @var {string}
+   */
   protected name: string;
+
+  /**
+   * @var {string}
+   */
   protected surname: string;
+
+  /**
+   * @var {string}
+   */
   protected company: string;
+
+  /**
+   * @var {string}
+   */
   protected email: string;
+
+  /**
+   * @var {any}
+   */
   protected address: any;
+
+  /**
+   * @var {any}
+   */
   protected mobile: any;
 
   /**
    * Person constructor.
    *
-   * @param {any} data Object to load in this entity.
+   * @param {any} data
    */
   constructor(data: any = []) {
     super();
@@ -34,88 +65,80 @@ export class Person extends Entity {
     this.address = data.hasOwnProperty("address")
       ? new Address(data.address)
       : null;
-
-    /*if (data.hasOwnProperty("address")) {
-      this.address = new Address(data.address);
-    }*/
-
-    this.mobile = data.hasOwnProperty("mobile")
-      ? PersonValidator.normalizePhone(data.mobile.toString())
-      : null;
+    this.mobile = data.hasOwnProperty("mobile") ? data.mobile.toString() : null;
   }
 
   /**
-   * @return string
+   * @returns {string}
    */
   getDocument(): string {
     return this.document;
   }
 
   /**
-   * @return string
+   * @returns {string}
    */
   getDocumentType(): string {
     return this.documentType;
   }
 
   /**
-   * @return string
+   * @returns {string}
    */
   getName(): string {
     return this.name;
   }
 
   /**
-   * @return string
+   * @returns {string}
    */
   getSurname(): string {
     return this.surname;
   }
 
   /**
-   * @return string
+   * @returns {string}
    */
   getCompany(): string {
     return this.company;
   }
 
   /**
-   * @return string
+   * @returns {string}
    */
   getEmail(): string {
     return this.email;
   }
 
   /**
-   * @return any
+   * @returns {any}
    */
   getAddress(): any {
     return this.address;
   }
 
   /**
-   * @return any
+   * @returns {any}
    */
   getMobile(): any {
-    return this.mobile;
+    return this.mobile !== null
+      ? PersonValidator.normalizePhone(this.mobile)
+      : null;
   }
 
   /**
-   * @return any
+   * @returns {any}
    */
   toObject(): any {
-    return {
+    return this.arrayFilter({
       document: this.getDocument(),
       documentType: this.getDocumentType(),
       name: this.getName(),
       surname: this.getSurname(),
       company: this.getCompany(),
       email: this.getEmail(),
-      address:
-        typeof this.getAddress() !== "undefined"
-          ? this.getAddress().toObject()
-          : null,
+      address: this.getAddress() ? this.getAddress().toObject() : null,
       mobile: this.getMobile(),
-    };
+    });
   }
 }
