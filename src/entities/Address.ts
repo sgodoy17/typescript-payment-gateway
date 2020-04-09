@@ -92,7 +92,7 @@ export class Address extends Entity {
    * @returns {any}
    */
   getPhone(): any {
-    return this.phone !== null
+    return this.phone != null
       ? PersonValidator.normalizePhone(this.phone)
       : null;
   }

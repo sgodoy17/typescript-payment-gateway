@@ -61,7 +61,7 @@ test("testItParsesCorrectlyACollectWithCredit", () => {
           tax: 5.7,
         },
       ],
-      recurring_remove: {
+      recurring: {
         periodicity: "D",
         interval: 7,
         nextPayment: "2020-04-10",

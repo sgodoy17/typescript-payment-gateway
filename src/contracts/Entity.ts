@@ -3,7 +3,7 @@
  */
 export abstract class Entity {
   /**
-   * @return any
+   * @returns {any}
    */
   abstract toObject(): any;
 

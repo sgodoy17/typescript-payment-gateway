@@ -1,5 +1,6 @@
 import { Entity } from "../contracts/Entity";
 import { Person } from "./Person";
+import { Payment } from "./Payment";
 
 /**
  * Class CollectRequest.
@@ -45,8 +46,8 @@ export class CollectRequest extends Entity {
 
     this.locale = data.hasOwnProperty("locale") ? data.locale : null;
     this.payer = data.hasOwnProperty("payer") ? new Person(data.payer) : null;
-    this.buyer = data.hasOwnProperty("buyer") ? data.buyer : null;
-    this.payment = data.hasOwnProperty("payment") ? data.payment : null;
+    this.buyer = data.hasOwnProperty("buyer") ? new Person(data.buyer) : null;
+    this.payment = data.hasOwnProperty("payment") ? new Payment(data.payment) : null;
     this.instrument = data.hasOwnProperty("instrument")
       ? data.instrument
       : null;

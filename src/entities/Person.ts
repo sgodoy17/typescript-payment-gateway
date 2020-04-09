@@ -121,7 +121,7 @@ export class Person extends Entity {
    * @returns {any}
    */
   getMobile(): any {
-    return this.mobile !== null
+    return this.mobile != null
       ? PersonValidator.normalizePhone(this.mobile)
       : null;
   }
