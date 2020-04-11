@@ -21,8 +21,8 @@ test("testItParsesCorrectlyACollectWithCredit", () => {
       },
     },
     payment: {
-      reference: "TEST_20200408_200203",
-      description: "Minus ipsum ut sint omnis ut.",
+      reference: "TEST_20200408",
+      description: "Minus ipsu.",
       amount: {
         taxes: [
           {
@@ -91,5 +91,5 @@ test("testItParsesCorrectlyACollectWithCredit", () => {
 
   let request = new CollectRequest(data);
 
-  console.log(request);
+  console.log(JSON.stringify(request.toObject(), null, 2));
 });

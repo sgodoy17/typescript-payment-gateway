@@ -1,53 +1,55 @@
 import { Entity } from "../contracts/Entity";
-import { Person } from "./Person";
 import { Payment } from "./Payment";
+import { Person } from "./Person";
 
 /**
- * Class CollectRequest.
+ * @class
+ * @extends {Entity}
  */
 export class CollectRequest extends Entity {
   /**
-   * @var {string}
+   * @type {string}
    */
   protected locale: string = "es_CO";
 
   /**
-   * @var {any}
+   * @type {any}
    */
   protected payer: any;
 
   /**
-   * @var {any}
+   * @type {any}
    */
   protected buyer: any;
 
   /**
-   * @var {any}
+   * @type {any}
    */
   protected payment: any;
 
   /**
-   * @var {any}
+   * @type {any}
    */
   protected instrument: any;
 
   /**
-   * @var {any}
+   * @type {any}
    */
   protected additional: any;
 
   /**
-   * CollectRequest constructor.
-   *
+   * @constructor
    * @param {any} data
    */
-  constructor(data: any = []) {
+  constructor(data: any = {}) {
     super();
 
     this.locale = data.hasOwnProperty("locale") ? data.locale : null;
     this.payer = data.hasOwnProperty("payer") ? new Person(data.payer) : null;
     this.buyer = data.hasOwnProperty("buyer") ? new Person(data.buyer) : null;
-    this.payment = data.hasOwnProperty("payment") ? new Payment(data.payment) : null;
+    this.payment = data.hasOwnProperty("payment")
+      ? new Payment(data.payment)
+      : null;
     this.instrument = data.hasOwnProperty("instrument")
       ? data.instrument
       : null;
@@ -104,9 +106,9 @@ export class CollectRequest extends Entity {
   toObject(): any {
     return this.arrayFilter({
       locale: this.getLocale(),
-      payer: this.getPayer().toObject(),
-      buyer: this.getBuyer(),
-      payment: this.getPayment(),
+      payer: this.getPayer() ? this.getPayer().toObject() : null,
+      buyer: this.getBuyer() ? this.getBuyer().toObject() : null,
+      payment: this.getPayment() ? this.getPayment().toObject() : null,
       instrument: this.getInstrument(),
       additional: this.getAdditional(),
     });

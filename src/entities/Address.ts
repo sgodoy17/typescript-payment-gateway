@@ -2,45 +2,45 @@ import { Entity } from "../contracts/Entity";
 import { PersonValidator } from "../validators/PersonValidator";
 
 /**
- * Class Address.
+ * @class
+ * @extends {Entity}
  */
 export class Address extends Entity {
   /**
-   * @var {string}
+   * @type {string}
    */
   protected street: string;
 
   /**
-   * @var {string}
+   * @type {string}
    */
   protected city: string;
 
   /**
-   * @var {string}
+   * @type {string}
    */
   protected state: string;
 
   /**
-   * @var {string}
+   * @type {string}
    */
   protected postalCode: string;
 
   /**
-   * @var {string}
+   * @type {string}
    */
   protected country: string;
 
   /**
-   * @var {any}
+   * @type {any}
    */
   protected phone: any;
 
   /**
-   * Address constructor.
-   *
+   * @constructor
    * @param {any} data
    */
-  constructor(data: any = []) {
+  constructor(data: any = {}) {
     super();
 
     this.street = data.hasOwnProperty("street") ? data.street : null;

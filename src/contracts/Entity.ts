@@ -1,5 +1,5 @@
 /**
- * Class Entity.
+ * @class
  */
 export abstract class Entity {
   /**
@@ -9,7 +9,7 @@ export abstract class Entity {
 
   /**
    * @param {any} data
-   * @returns {any} New filtered object.
+   * @returns {any}
    */
   arrayFilter(data: any): any {
     let values = [0, null, "", false, undefined];

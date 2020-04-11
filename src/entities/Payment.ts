@@ -1,73 +1,74 @@
-import { Entity } from "../contracts/Entity";
+import { Amount } from "./Amount";
 import { Bank } from "./Bank";
 import { Card } from "./Card";
+import { Entity } from "../contracts/Entity";
 import { Token } from "./Token";
 
 /**
- * Class Payment.
+ * @class
+ * @extends {Entity}
  */
 export class Payment extends Entity {
   /**
-   * @var {string}
+   * @type {string}
    */
   protected reference: string;
 
   /**
-   * @var {any}
+   * @type {any}
    */
   protected description: string;
 
   /**
-   * @var {any}
+   * @type {any}
    */
   protected amount: any;
 
   /**
-   * @var {boolean}
+   * @type {boolean}
    */
   protected allowPartial: boolean = false;
 
   /**
-   * @var {any}
+   * @type {any}
    */
   protected shipping: any;
 
   /**
-   * @var {any}
+   * @type {any}
    */
   protected items: any;
 
   /**
-   * @var {any}
+   * @type {any}
    */
   protected recurring: any;
 
   /**
-   * @var {boolean}
+   * @type {boolean}
    */
   protected subscribe: boolean = false;
 
   /**
-   * @var string
+   * @type string
    */
   protected agreement: string;
 
   /**
-   * @var {string}
+   * @type {string}
    */
   protected agreementType: string;
 
   /**
-   * @var {any}
+   * @type {any}
    */
   protected gds: any;
 
   /**
-   * Payment constructor.
-   *
+   * @constructor
    * @param {any} data
    */
-  constructor(data: any = []) {
+  constructor(data: any = {}) {
     super();
 
     this.reference = data.hasOwnProperty("reference") ? data.reference : null;
@@ -82,7 +83,9 @@ export class Payment extends Entity {
     this.agreementType = data.hasOwnProperty("agreementType")
       ? data.agreementType
       : null;
-    this.amount = data.hasOwnProperty("amount") ? data.amount : null;
+    this.amount = data.hasOwnProperty("amount")
+      ? new Amount(data.amount)
+      : null;
     this.recurring = data.hasOwnProperty("recurring") ? data.recurring : null;
     this.shipping = data.hasOwnProperty("shipping") ? data.shipping : null;
     this.items = data.hasOwnProperty("items") ? data.items : null;
@@ -173,7 +176,7 @@ export class Payment extends Entity {
     return this.arrayFilter({
       reference: this.getReference(),
       description: this.getDescription(),
-      amount: this.getAmount(),
+      amount: this.getAmount() ? this.getAmount().toObject() : null,
       allowPartial: this.getAllowPartial(),
       shipping: this.getShipping(),
       items: this.getItems(),

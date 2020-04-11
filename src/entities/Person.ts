@@ -1,54 +1,54 @@
-import { Entity } from "../contracts/Entity";
 import { Address } from "./Address";
+import { Entity } from "../contracts/Entity";
 import { PersonValidator } from "../validators/PersonValidator";
 
 /**
- * Class Person.
+ * @class
+ * @extends {Entity}
  */
 export class Person extends Entity {
   /**
-   * @var {string}
+   * @type {string}
    */
   protected document: string;
 
   /**
-   * @var {string}
+   * @type {string}
    */
   protected documentType: string;
 
   /**
-   * @var {string}
+   * @type {string}
    */
   protected name: string;
 
   /**
-   * @var {string}
+   * @type {string}
    */
   protected surname: string;
 
   /**
-   * @var {string}
+   * @type {string}
    */
   protected company: string;
 
   /**
-   * @var {string}
+   * @type {string}
    */
   protected email: string;
 
   /**
-   * @var {any}
+   * @type {any}
    */
   protected address: any;
 
   /**
-   * @var {any}
+   * @type {any}
    */
   protected mobile: any;
 
   /**
-   * Person constructor.
-   *
+   * @constructor
    * @param {any} data
    */
   constructor(data: any = []) {
