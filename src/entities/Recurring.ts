@@ -1,22 +1,45 @@
 import { Entity } from "../contracts/Entity";
 
 /**
- * Class Recurring.
+ * @class
+ * @extends {Entity}
  */
 export class Recurring extends Entity {
+  /**
+   * @type {string}
+   */
   protected periodicity: string;
+
+  /**
+   * @type {number}
+   */
   protected interval: number;
+
+  /**
+   * @type {string}
+   */
   protected nextPayment: string;
+
+  /**
+   * @type {number}
+   */
   protected maxPeriods: number;
+
+  /**
+   * @type {string}
+   */
   protected dueDate: string;
+
+  /**
+   * @type {string}
+   */
   protected notificationUrl: string;
 
   /**
-   * Recurring constructor.
-   *
-   * @param data
+   * @constructor
+   * @param {any} data
    */
-  constructor(data: any = []) {
+  constructor(data: any = {}) {
     super();
 
     this.periodicity = data.hasOwnProperty("periodicity")
@@ -36,58 +59,58 @@ export class Recurring extends Entity {
   }
 
   /**
-   * @return string
+   * @returns {string}
    */
   getPeriodicity(): string {
     return this.periodicity;
   }
 
   /**
-   * @return number
+   * @returns {number}
    */
   getInterval(): number {
     return this.interval;
   }
 
   /**
-   * @return string
+   * @returns {string}
    */
   getNextPayment(): string {
     return this.nextPayment;
   }
 
   /**
-   * @return number
+   * @returns {number}
    */
   getMaxPeriods(): number {
     return this.maxPeriods;
   }
 
   /**
-   * @return string
+   * @returns {string}
    */
   getDueDate(): string {
     return this.dueDate;
   }
 
   /**
-   * @return string
+   * @returns {string}
    */
   getNotificationUrl(): string {
     return this.notificationUrl;
   }
 
   /**
-   * @return @ny
+   * @returns {any}
    */
   toObject(): any {
-    return {
+    return this.arrayFilter({
       periodicity: this.getPeriodicity(),
       interval: this.getInterval(),
       nextPayment: this.getNextPayment(),
       maxPeriods: this.getMaxPeriods(),
       dueDate: this.getDueDate(),
       notificationUrl: this.getNotificationUrl(),
-    };
+    });
   }
 }

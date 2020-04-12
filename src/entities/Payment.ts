@@ -1,8 +1,9 @@
 import { Amount } from "./Amount";
-import { Bank } from "./Bank";
-import { Card } from "./Card";
 import { Entity } from "../contracts/Entity";
-import { Token } from "./Token";
+import { Person } from "./Person";
+import { Recurring } from "./Recurring";
+import { Item } from "./Item";
+import { GDS } from "./GDS";
 
 /**
  * @class
@@ -86,10 +87,16 @@ export class Payment extends Entity {
     this.amount = data.hasOwnProperty("amount")
       ? new Amount(data.amount)
       : null;
-    this.recurring = data.hasOwnProperty("recurring") ? data.recurring : null;
-    this.shipping = data.hasOwnProperty("shipping") ? data.shipping : null;
-    this.items = data.hasOwnProperty("items") ? data.items : null;
-    this.gds = data.hasOwnProperty("gds") ? data.gds : null;
+    this.recurring = data.hasOwnProperty("recurring")
+      ? new Recurring(data.recurring)
+      : null;
+    this.shipping = data.hasOwnProperty("shipping")
+      ? new Person(data.shipping)
+      : null;
+    this.items = data.hasOwnProperty("items")
+      ? this.setItems(data.items)
+      : null;
+    this.gds = data.hasOwnProperty("gds") ? new GDS(data.gds) : null;
   }
 
   /**
@@ -170,6 +177,45 @@ export class Payment extends Entity {
   }
 
   /**
+   * @param {any} items
+   * @returns {any}
+   */
+  setItems(items: any): any {
+    if (typeof items.item != "undefined") {
+      items = items.item;
+    }
+
+    let result: any = [];
+
+    items.forEach((item: any) => {
+      if (item instanceof Object) {
+        item = new Item(item);
+      }
+
+      result.push(item);
+    });
+
+    return result;
+  }
+
+  /**
+   * @returns {any}
+   */
+  itemsToArray(): any {
+    if (this.getItems()) {
+      let items: any = [];
+
+      this.getItems().forEach((item: any) => {
+        items.push(item instanceof Item ? item.toObject() : null);
+      });
+
+      return items;
+    }
+
+    return null;
+  }
+
+  /**
    * @returns {any}
    */
   toObject(): any {
@@ -178,14 +224,14 @@ export class Payment extends Entity {
       description: this.getDescription(),
       amount: this.getAmount() ? this.getAmount().toObject() : null,
       allowPartial: this.getAllowPartial(),
-      shipping: this.getShipping(),
-      items: this.getItems(),
-      recurring: this.getRecurring(),
+      shipping: this.getShipping() ? this.getShipping().toObject() : null,
+      items: this.itemsToArray(),
+      recurring: this.getRecurring() ? this.getRecurring().toObject() : null,
       subscribe: this.getSubscribe(),
       additional: null, // This is in EntityWithNameValuePair
       agreement: this.getAgreement(),
       agreementType: this.getAgreementType(),
-      gds: this.getGds(),
+      gds: this.getGds() ? this.getGds().toObject() : null,
     });
   }
 }

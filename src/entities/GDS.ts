@@ -1,20 +1,35 @@
 import { Entity } from "../contracts/Entity";
 
 /**
- * Class GDS.
+ * @class
+ * @extends {Entity}
  */
 export class GDS extends Entity {
+  /**
+   * @type {string}
+   */
   protected code: string;
+
+  /**
+   * @type {string}
+   */
   protected session: string;
+
+  /**
+   * @type {string}
+   */
   protected pnr: string;
+
+  /**
+   * @type {string}
+   */
   protected airline: string;
 
   /**
-   * GDS constructor.
-   *
-   * @param data
+   * @constructor
+   * @param {any} data
    */
-  constructor(data: any = []) {
+  constructor(data: any = {}) {
     super();
 
     this.code = data.hasOwnProperty("code") ? data.code : null;
@@ -24,42 +39,42 @@ export class GDS extends Entity {
   }
 
   /**
-   * @return string
+   * @returns {string}
    */
   getCode(): string {
     return this.code;
   }
 
   /**
-   * @return string
+   * @returns {string}
    */
   getSession(): string {
     return this.session;
   }
 
   /**
-   * @return string
+   * @returns {string}
    */
   getPnr(): string {
     return this.pnr;
   }
 
   /**
-   * @return string
+   * @returns {string}
    */
   getAirline(): string {
     return this.airline;
   }
 
   /**
-   * @return any
+   * @returns {any}
    */
   toObject(): any {
-    return {
+    return this.arrayFilter({
       code: this.getCode(),
       session: this.getSession(),
       pnr: this.getPnr(),
       airline: this.getAirline(),
-    };
+    });
   }
 }

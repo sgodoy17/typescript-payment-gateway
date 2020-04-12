@@ -1,58 +1,66 @@
 import { Entity } from "../contracts/Entity";
 
 /**
- * Class NameValuePair.
+ * @class
+ * @extends {Entity}
  */
 export class NameValuePair extends Entity {
+  /**
+   * @type {string}
+   */
   protected keyword: string;
+
+  /**
+   * @type {string}
+   */
   protected value: string;
+
+  /**
+   * @type {string}
+   */
   protected displayOn: string = "none";
 
   /**
-   * NameValuePair constructor.
-   *
-   * @param data
+   * @constructor
+   * @param {any} data
    */
-  constructor(data: any = []) {
+  constructor(data: any = {}) {
     super();
 
     this.keyword = data.hasOwnProperty("keyword") ? data.keyword : null;
     this.value = data.hasOwnProperty("value") ? data.value : null;
-
-    if (data.hasOwnProperty("displayOn")) {
-      this.displayOn = data.displayOn;
-    }
+    this.displayOn = data.hasOwnProperty("displayOn") ? data.displayOn : null;
   }
 
   /**
-   * @return string
+   * @returns {string}
    */
   getKeyword(): string {
     return this.keyword;
   }
 
   /**
-   * @return string
+   * @returns {string}
    */
   getValue(): string {
     return this.value;
   }
 
   /**
-   * @return string
+   * @returns {string}
    */
   getDisplayOn(): string {
     return this.displayOn;
   }
 
   /**
-   * @return any
+   * @returns {any}
    */
   toObject(): any {
-    return {
+    return this.arrayFilter({
       keyword: this.getKeyword(),
       value: this.getValue(),
       displayOn: this.getDisplayOn(),
-    };
+    });
   }
 }
