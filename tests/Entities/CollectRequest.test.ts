@@ -3,6 +3,14 @@ import { CollectRequest } from "../../src/entities/CollectRequest";
 test("testItParsesCorrectlyACollectWithCredit", () => {
   let data: any = {
     locale: "es_CO",
+    instrument: {
+      card: {
+        number: "4111111111111111",
+        expirationMonth: "12",
+        expirationYear: "23",
+        cvv: "123",
+      },
+    },
     payer: {
       name: "Cassie",
       surname: "Walsh",

@@ -1,7 +1,8 @@
 import { Entity } from "../contracts/Entity";
 
 /**
- * Class Status.
+ * @class
+ * @extends {Entity}
  */
 export class Status extends Entity {
   public static readonly ST_OK: string = "OK";
@@ -15,9 +16,24 @@ export class Status extends Entity {
   public static readonly ST_ERROR: string = "ERROR";
   public static readonly ST_UNKNOWN: string = "UNKNOWN";
 
+  /**
+   * @type {string}
+   */
   protected status: string;
+
+  /**
+   * @type {string}
+   */
   protected reason: string;
+
+  /**
+   * @type {string}
+   */
   protected message: string;
+
+  /**
+   * @type {string}
+   */
   protected date: string;
 
   protected static readonly STATUSES: string[] = [
@@ -34,11 +50,10 @@ export class Status extends Entity {
   ];
 
   /**
-   * Status constructor.
-   *
-   * @param data
+   * @constructor
+   * @param {any} data
    */
-  constructor(data: any = []) {
+  constructor(data: any = {}) {
     super();
 
     this.status = data.hasOwnProperty("status") ? data.status : null;
@@ -48,71 +63,71 @@ export class Status extends Entity {
   }
 
   /**
-   * @return string
+   * @returns {string}
    */
   getStatus(): string {
     return this.status;
   }
 
   /**
-   * @return string
+   * @returns {string}
    */
   getReason(): string {
     return this.reason;
   }
 
   /**
-   * @return string
+   * @returns {string}
    */
   getMessage(): string {
     return this.message;
   }
 
   /**
-   * @return string
+   * @returns {string}
    */
   getDate(): string {
     return this.date;
   }
 
   /**
-   * @return boolean
+   * @returns {boolean}
    */
   isFailed(): boolean {
     return this.getStatus() == Status.ST_FAILED;
   }
 
   /**
-   * @return boolean
+   * @returns {boolean}
    */
   isSuccessful(): boolean {
     return this.getStatus() == Status.ST_OK;
   }
 
   /**
-   * @return boolean
+   * @returns {boolean}
    */
   isApproved(): boolean {
     return this.getStatus() == Status.ST_APPROVED;
   }
 
   /**
-   * @return boolean
+   * @returns {boolean}
    */
   isRejected(): boolean {
     return this.getStatus() == Status.ST_REJECTED;
   }
 
   /**
-   * @return boolean
+   * @returns {boolean}
    */
   isError(): boolean {
     return this.getStatus() == Status.ST_ERROR;
   }
 
   /**
-   * @param status
-   * @return any
+   * @param {string} status
+   * @returns {any}
    */
   static validStatus(status: string): any {
     if (typeof status !== "undefined") {
@@ -123,14 +138,14 @@ export class Status extends Entity {
   }
 
   /**
-   * @return any
+   * @returns {any}
    */
   toObject(): any {
-    return {
+    return this.arrayFilter({
       status: this.getStatus(),
       reason: this.getReason(),
       message: this.getMessage(),
       date: this.getDate(),
-    };
+    });
   }
 }

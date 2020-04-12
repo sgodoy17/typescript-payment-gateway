@@ -1,27 +1,54 @@
 import { Entity } from "../contracts/Entity";
 
 /**
- * Class Card.
+ * @class
+ * @extends {Entity}
  */
 export class Card extends Entity {
   public static readonly TP_CREDIT: string = "C";
   public static readonly TP_DEBIT_SAVING: string = "A";
   public static readonly TP_DEBIT_CURRENT: string = "R";
 
-  protected name: string = "";
-  private number: string = "";
-  private cvv: string = "";
+  /**
+   * @type {string}
+   */
+  protected name: string;
+
+  /**
+   * @type {string}
+   */
+  private number: string;
+
+  /**
+   * @type {string}
+   */
+  private cvv: string;
+
+  /**
+   * @type {string}
+   */
   private expirationMonth: string;
+
+  /**
+   * @type {string}
+   */
   private expirationYear: string;
+
+  /**
+   * @type {number}
+   */
   protected installments: number;
+
+  /**
+   * @type {string}
+   */
   protected kind: string = Card.TP_CREDIT;
 
   /**
-   * Card constructor.
-   *
-   * @param data
+   * @constructor
+   * @param {any} data
    */
-  constructor(data: any = []) {
+  constructor(data: any = {}) {
     super();
 
     this.name = data.hasOwnProperty("name") ? data.name : null;
@@ -43,59 +70,59 @@ export class Card extends Entity {
   }
 
   /**
-   * @return string
+   * @returns {string}
    */
-  getName() {
+  getName(): string {
     return this.name;
   }
 
   /**
-   * @return string
+   * @returns {string}
    */
-  getNumber() {
+  getNumber(): string {
     return this.number;
   }
 
   /**
-   * @return string
+   * @returns {string}
    */
-  getCvv() {
+  getCvv(): string {
     return this.cvv;
   }
 
   /**
-   * @return string
+   * @returns {string}
    */
-  getExpirationMonth() {
+  getExpirationMonth(): string {
     return this.expirationMonth;
   }
 
   /**
-   * @return string
+   * @returns {string}
    */
-  getExpirationYear() {
+  getExpirationYear(): string {
     return this.expirationYear;
   }
 
   /**
-   * @return number
+   * @returns {number}
    */
-  getInstallments() {
+  getInstallments(): number {
     return this.installments;
   }
 
   /**
-   * @return string
+   * @returns {string}
    */
-  getKind() {
+  getKind(): string {
     return this.kind;
   }
 
   /**
-   * @return any
+   * @returns {any}
    */
   toObject(): any {
-    return {
+    return this.arrayFilter({
       name: this.getName(),
       number: this.getNumber(),
       ccv: this.getCvv(),
@@ -103,6 +130,6 @@ export class Card extends Entity {
       expirationYear: this.getExpirationYear(),
       installments: this.getInstallments(),
       kind: this.getKind(),
-    };
+    });
   }
 }

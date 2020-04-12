@@ -2,32 +2,70 @@ import { Entity } from "../contracts/Entity";
 import { Status } from "./Status";
 
 /**
- * Class Token.
+ * @class
+ * @extends {Entity}
  */
 export class Token extends Entity {
+  /**
+   * @type {any}
+   */
   protected status: any;
+
+  /**
+   * @type {string}
+   */
   protected token: string;
+
+  /**
+   * @type {string}
+   */
   protected subtoken: string;
+
+  /**
+   * @type {string}
+   */
   protected franchise: string;
+
+  /**
+   * @type {string}
+   */
   protected franchiseName: string;
+
+  /**
+   * @type {string}
+   */
   protected issuerName: string;
+
+  /**
+   * @type {string}
+   */
   protected lastDigits: string;
+
+  /**
+   * @type {string}
+   */
   protected validUntil: string;
+
+  /**
+   * @type {string}
+   */
   protected cvv: string;
+
+  /**
+   * @type {number}
+   */
   protected installments: number;
 
   /**
-   * Token constructor.
-   *
-   * @param data
+   * @constructor
+   * @param {any} data
    */
-  constructor(data: any = []) {
+  constructor(data: any = {}) {
     super();
 
-    if (data.hasOwnProperty("status")) {
-      this.status = new Status(data.status);
-    }
-
+    this.status = data.hasOwnProperty("status")
+      ? new Status(data.status)
+      : null;
     this.token = data.hasOwnProperty("token") ? data.token : null;
     this.subtoken = data.hasOwnProperty("subtoken") ? data.subtoken : null;
     this.franchise = data.hasOwnProperty("franchise") ? data.franchise : null;
@@ -49,82 +87,85 @@ export class Token extends Entity {
       : null;
   }
 
-  setStatus(status: Status): void {
+  /**
+   * @param {any} status
+   */
+  setStatus(status: any): void {
     this.status = status;
   }
 
   /**
-   * @return Status
+   * @returns {any}
    */
-  getStatus(): Status {
+  getStatus(): any {
     return this.status;
   }
 
   /**
-   * @return string
+   * @returns {string}
    */
   getToken(): string {
     return this.token;
   }
 
   /**
-   * @return string
+   * @returns {string}
    */
   getSubtoken(): string {
     return this.subtoken;
   }
 
   /**
-   * @return string
+   * @returns {string}
    */
   getFranchise(): string {
     return this.franchise;
   }
 
   /**
-   * @return string
+   * @returns {string}
    */
   getFranchiseName(): string {
     return this.franchiseName;
   }
 
   /**
-   * @return string
+   * @returns {string}
    */
   getIssuerName(): string {
     return this.issuerName;
   }
 
   /**
-   * @return string
+   * @returns {string}
    */
   getLastDigits(): string {
     return this.lastDigits;
   }
 
   /**
-   * @return string
+   * @returns {string}
    */
   getValidUntil(): string {
     return this.validUntil;
   }
 
   /**
-   * @return string
+   * @returns {string}
    */
   getCvv(): string {
     return this.cvv;
   }
 
   /**
-   * @return number
+   * @returns {number}
    */
   getInstallments(): number {
     return this.installments;
   }
 
   /**
-   * @return string
+   * @returns {string}
    */
   getExpiration(): string {
     let date = new Date(this.validUntil);
@@ -135,21 +176,18 @@ export class Token extends Entity {
   }
 
   /**
-   * @return boolean
+   * @returns {boolean}
    */
   isSuccessful(): boolean {
     return this.status.getStatus() == Status.ST_OK;
   }
 
   /**
-   * @return any
+   * @returns {any}
    */
   toObject(): any {
-    return {
-      status:
-        typeof this.getStatus() !== "undefined"
-          ? this.getStatus().toObject()
-          : null,
+    return this.arrayFilter({
+      status: this.getStatus() ? this.getStatus().toObject() : null,
       token: this.getToken(),
       subtoken: this.getSubtoken(),
       franchise: this.getFranchise(),
@@ -159,6 +197,6 @@ export class Token extends Entity {
       validUntil: this.getValidUntil(),
       cvv: this.getCvv(),
       installments: this.getInstallments(),
-    };
+    });
   }
 }

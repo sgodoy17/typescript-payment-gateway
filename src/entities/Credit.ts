@@ -1,20 +1,35 @@
 import { Entity } from "../contracts/Entity";
 
 /**
- * Class Credit.
+ * @class
+ * @extends {Entity}
  */
 export class Credit extends Entity {
+  /**
+   * @type {string}
+   */
   protected code: string;
+
+  /**
+   * @type {string}
+   */
   protected type: string;
+
+  /**
+   * @type {string}
+   */
   protected groupCode: string;
+
+  /**
+   * @type {number}
+   */
   protected installment: number;
 
   /**
-   * Credit constructor.
-   *
-   * @param data
+   * @constructor
+   * @param {any} data
    */
-  constructor(data: any = []) {
+  constructor(data: any = {}) {
     super();
 
     this.code = data.hasOwnProperty("code") ? data.code : null;
@@ -26,42 +41,42 @@ export class Credit extends Entity {
   }
 
   /**
-   * @return string
+   * @returns {string}
    */
   getCode(): string {
     return this.code;
   }
 
   /**
-   * @return string
+   * @returns {string}
    */
   getType(): string {
     return this.type;
   }
 
   /**
-   * @return string
+   * @returns {string}
    */
   getGroupCode(): string {
     return this.groupCode;
   }
 
   /**
-   * @return string
+   * @returns {string}
    */
   getInstallment(): number {
     return this.installment;
   }
 
   /**
-   * @return any
+   * @returns {any}
    */
   toObject(): any {
-    return {
+    return this.arrayFilter({
       code: this.getCode(),
       type: this.getType(),
       groupCode: this.getGroupCode(),
       installment: this.getInstallment(),
-    };
+    });
   }
 }

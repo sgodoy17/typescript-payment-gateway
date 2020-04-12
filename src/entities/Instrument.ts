@@ -1,106 +1,112 @@
-import { Entity } from "../contracts/Entity";
-import { Credit } from "./Credit";
 import { Bank } from "./Bank";
 import { Card } from "./Card";
+import { Credit } from "./Credit";
+import { Entity } from "../contracts/Entity";
 import { Token } from "./Token";
 
 /**
- * Class Instrument.
+ * @class
+ * @extends {Entity}
  */
 export class Instrument extends Entity {
+  /**
+   * @type {any}
+   */
   protected bank: any;
-  protected card: any;
-  protected token: any;
-  protected credit: any;
-  protected pin: any;
-  protected password: any;
 
   /**
-   * Instrument constructor.
-   *
-   * @param data
+   * @type {any}
    */
-  constructor(data: any = []) {
+  protected card: any;
+
+  /**
+   * @type {any}
+   */
+  protected token: any;
+
+  /**
+   * @type {any}
+   */
+  protected credit: any;
+
+  /**
+   * @type {string}
+   */
+  protected pin: string;
+
+  /**
+   * @type {string}
+   */
+  protected password: string;
+
+  /**
+   * @constructor
+   * @param {any} data
+   */
+  constructor(data: any = {}) {
     super();
 
-    if (data.hasOwnProperty("bank")) {
-      this.bank = new Bank(data.bank);
-    }
-
-    if (data.hasOwnProperty("card")) {
-      this.card = new Card(data.card);
-    }
-
-    if (data.hasOwnProperty("token")) {
-      this.token = new Token(data.token);
-    }
-
-    if (data.hasOwnProperty("credit")) {
-      this.credit = new Credit(data.credit);
-    }
-
-    if (data.hasOwnProperty("pin")) {
-      this.pin = data.pin;
-    }
-
-    if (data.hasOwnProperty("password")) {
-      this.password = data.password;
-    }
+    this.bank = data.hasOwnProperty("bank") ? new Bank(data.bank) : null;
+    this.card = data.hasOwnProperty("card") ? new Card(data.card) : null;
+    this.token = data.hasOwnProperty("token") ? new Token(data.token) : null;
+    this.credit = data.hasOwnProperty("credit") ? new Credit(data.credit) : null;
+    this.pin = data.hasOwnProperty("pin") ? data.pin : null;
+    this.password = data.hasOwnProperty("password") ? data.password : null;
   }
 
   /**
-   * @return any
+   * @returns {any}
    */
   getBank(): any {
     return this.bank;
   }
 
   /**
-   * @return any
+   * @returns {any}
    */
   getCard(): any {
     return this.card;
   }
 
   /**
-   * @return any
+   * @returns {any}
    */
   getToken(): any {
     return this.token;
   }
 
   /**
-   * @return any
+   * @returns {any}
    */
   getCredit(): any {
     return this.credit;
   }
 
   /**
-   * @return string
+   * @returns {string}
    */
   getPin(): string {
     return this.pin;
   }
 
   /**
-   * @return string
+   * @returns {string}
    */
   getPassword(): string {
     return this.password;
   }
 
   /**
-   * @return any
+   * @returns {any}
    */
   toObject(): any {
-    return {
-      bank: typeof this.getBank() ? this.getBank().toObject() : null,
-      card: typeof this.getCard() ? this.getCard().toObject() : null,
-      credit: typeof this.getCredit() ? this.getCredit().toObject() : null,
-      token: typeof this.getToken() ? this.getToken().toObject() : null,
+    return this.arrayFilter({
+      bank: this.getBank() ? this.getBank().toObject() : null,
+      card: this.getCard() ? this.getCard().toObject() : null,
+      credit: this.getCredit() ? this.getCredit().toObject() : null,
+      token: this.getToken() ? this.getToken().toObject() : null,
       pin: this.getPin(),
       password: this.getPassword(),
-    };
+    });
   }
 }

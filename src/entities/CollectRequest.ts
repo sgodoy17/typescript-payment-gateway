@@ -1,6 +1,7 @@
 import { Entity } from "../contracts/Entity";
 import { Payment } from "./Payment";
 import { Person } from "./Person";
+import { Instrument } from "./Instrument";
 
 /**
  * @class
@@ -51,7 +52,7 @@ export class CollectRequest extends Entity {
       ? new Payment(data.payment)
       : null;
     this.instrument = data.hasOwnProperty("instrument")
-      ? data.instrument
+      ? new Instrument(data.instrument)
       : null;
     this.additional = data.hasOwnProperty("additional")
       ? data.additional
@@ -109,7 +110,7 @@ export class CollectRequest extends Entity {
       payer: this.getPayer() ? this.getPayer().toObject() : null,
       buyer: this.getBuyer() ? this.getBuyer().toObject() : null,
       payment: this.getPayment() ? this.getPayment().toObject() : null,
-      instrument: this.getInstrument(),
+      instrument: this.getInstrument() ? this.getInstrument().toObject() : null,
       additional: this.getAdditional(),
     });
   }
