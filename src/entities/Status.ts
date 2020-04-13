@@ -59,7 +59,7 @@ export class Status extends Entity {
     this.status = data.hasOwnProperty("status") ? data.status : null;
     this.reason = data.hasOwnProperty("reason") ? data.reason.toString() : null;
     this.message = data.hasOwnProperty("message") ? data.message : null;
-    this.date = data.hasOwnProperty("data") ? data.date : null;
+    this.date = data.hasOwnProperty("date") ? data.date : null;
   }
 
   /**

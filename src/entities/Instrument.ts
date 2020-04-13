@@ -49,7 +49,9 @@ export class Instrument extends Entity {
     this.bank = data.hasOwnProperty("bank") ? new Bank(data.bank) : null;
     this.card = data.hasOwnProperty("card") ? new Card(data.card) : null;
     this.token = data.hasOwnProperty("token") ? new Token(data.token) : null;
-    this.credit = data.hasOwnProperty("credit") ? new Credit(data.credit) : null;
+    this.credit = data.hasOwnProperty("credit")
+      ? new Credit(data.credit)
+      : null;
     this.pin = data.hasOwnProperty("pin") ? data.pin : null;
     this.password = data.hasOwnProperty("password") ? data.password : null;
   }

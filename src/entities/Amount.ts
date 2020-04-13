@@ -131,7 +131,7 @@ export class Amount extends AmountBase {
         result.push(detail);
       }
     });
-    
+
     return result;
   }
 
