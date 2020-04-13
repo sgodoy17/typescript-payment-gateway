@@ -101,9 +101,7 @@ export class Authentication {
     if (this.auth) {
       nonce = this.auth.nonce;
     } else {
-      nonce = Math.random()
-        .toString(36)
-        .substring(7);
+      nonce = Math.random().toString(36).substring(7);
     }
 
     if (encoded) {
@@ -151,11 +149,13 @@ export class Authentication {
     let crypto = new CustomCrypto();
 
     if (this.type == "full") {
-      digest = crypto.hash("sha256", this.getNonce(false) + this.getSeed() + this.getTranKey());
+      digest = crypto.hash(
+        "sha256",
+        this.getNonce(false) + this.getSeed() + this.getTranKey()
+      );
 
       encoded = false;
     } else {
-
       digest = crypto.hash("sha256", this.getSeed() + this.getTranKey(), false);
     }
 
@@ -173,7 +173,7 @@ export class Authentication {
     if (!this.override) {
       this.auth = {
         seed: this.getSeed(),
-        nonce: this.getNonce()
+        nonce: this.getNonce(),
       };
     }
   }
@@ -187,7 +187,7 @@ export class Authentication {
       tranKey: this.digest(),
       nonce: this.getNonce(),
       seed: this.getSeed(),
-      additional: this.getAdditional()
+      additional: this.getAdditional(),
     };
   }
 }

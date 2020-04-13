@@ -1,10 +1,22 @@
 /**
- * Class CustomSha256.
+ * @class
  */
 export class CustomSha256 {
+  /**
+   * @type {number}
+   */
   character_size: number = 8;
+
+  /**
+   * @type {number}
+   */
   hex_case: number = 0;
 
+  /**
+   * @param {string} string
+   * @param {boolean} type
+   * @returns {string}
+   */
   sha256(string: string, type: boolean = true): string {
     string = this.utf8Encode(string);
 
@@ -25,6 +37,11 @@ export class CustomSha256 {
     }
   }
 
+  /**
+   * @param {any} x
+   * @param {any} y
+   * @returns {number}
+   */
   safeAdd(x: any, y: any): number {
     let lsw: number = (x & 0xffff) + (y & 0xffff);
     let msw: number = (x >> 16) + (y >> 16) + (lsw >> 16);
@@ -32,38 +49,81 @@ export class CustomSha256 {
     return (msw << 16) | (lsw & 0xffff);
   }
 
+  /**
+   * @param {any} X
+   * @param {any} n
+   * @returns {number}
+   */
   S(X: any, n: any): number {
     return (X >>> n) | (X << (32 - n));
   }
 
+  /**
+   * @param {any} X
+   * @param {any} n
+   * @returns {number}
+   */
   R(X: any, n: any): number {
     return X >>> n;
   }
 
+  /**
+   * @param {any} x
+   * @param {any} y
+   * @param {any} z
+   * @returns {number}
+   */
   Ch(x: any, y: any, z: any): number {
     return (x & y) ^ (~x & z);
   }
 
+  /**
+   * @param {any} x
+   * @param {any} y
+   * @param {any} z
+   * @returns {number}
+   */
   Maj(x: any, y: any, z: any): number {
     return (x & y) ^ (x & z) ^ (y & z);
   }
 
+  /**
+   * @param {any} x
+   * @returns {number}
+   */
   Sigma0256(x: any): number {
     return this.S(x, 2) ^ this.S(x, 13) ^ this.S(x, 22);
   }
 
+  /**
+   * @param {any} x
+   * @returns {number}
+   */
   Sigma1256(x: any): number {
     return this.S(x, 6) ^ this.S(x, 11) ^ this.S(x, 25);
   }
 
+  /**
+   * @param {any} x
+   * @returns {number}
+   */
   Gamma0256(x: any): number {
     return this.S(x, 7) ^ this.S(x, 18) ^ this.R(x, 3);
   }
 
+  /**
+   * @param {any} x
+   * @returns {number}
+   */
   Gamma1256(x: any): number {
     return this.S(x, 17) ^ this.S(x, 19) ^ this.R(x, 10);
   }
 
+  /**
+   * @param {any} m
+   * @param {any} l
+   * @returns {Array<any>}
+   */
   coreSha256(m: any, l: any): Array<any> {
     let K: Array<Object> = new Array(
       0x428a2f98,
@@ -206,6 +266,10 @@ export class CustomSha256 {
     return HASH;
   }
 
+  /**
+   * @param {any} string
+   * @returns {number[]}
+   */
   stringToBinary(string: any): number[] {
     let bin: Array<number> = [];
     let mask: number = (1 << this.character_size) - 1;
@@ -222,6 +286,10 @@ export class CustomSha256 {
     return bin;
   }
 
+  /**
+   * @param {string} string
+   * @returns {string}
+   */
   utf8Encode(string: string): string {
     string = string.replace(/\r\n/g, "\n");
     let utfText: string = "";
@@ -244,7 +312,11 @@ export class CustomSha256 {
     return utfText;
   }
 
-  binaryToHex(binArray: Array<number>) {
+  /**
+   * @param {Array<number>} binArray
+   * @returns {string}
+   */
+  binaryToHex(binArray: Array<number>): string {
     var hex_tab = this.hex_case ? "0123456789ABCDEF" : "0123456789abcdef";
     var str = "";
 
@@ -257,6 +329,10 @@ export class CustomSha256 {
     return str;
   }
 
+  /**
+   * @param {Array<any>} binArray
+   * @returns {string}
+   */
   binaryToBase64(binArray: Array<any>): string {
     var sigBytes: number = 32;
     var map: string =

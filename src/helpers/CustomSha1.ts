@@ -1,8 +1,12 @@
 /**
- * Class CustomSha1.
+ * @class
  */
 export class CustomSha1 {
-  sha1(string: string) {
+  /**
+   * @param {string} string
+   * @returns {string}
+   */
+  sha1(string: string): string {
     let blockStart: number;
     let i: number, j: number;
     let W: Array<any> = new Array(80);
@@ -52,7 +56,7 @@ export class CustomSha1 {
     word_array.push(i);
 
     while (word_array.length % 16 != 14) {
-        word_array.push(0);
+      word_array.push(0);
     }
 
     word_array.push(msg_len >>> 29);
@@ -66,7 +70,7 @@ export class CustomSha1 {
       for (i = 16; i <= 79; i++) {
         W[i] = this.rotateLeft(W[i - 3] ^ W[i - 8] ^ W[i - 14] ^ W[i - 16], 1);
       }
-        
+
       A = H0;
       B = H1;
       C = H2;
@@ -131,7 +135,7 @@ export class CustomSha1 {
       H3 = (H3 + D) & 0x0ffffffff;
       H4 = (H4 + E) & 0x0ffffffff;
     }
-    
+
     var temporal =
       this.lsbHex(H0) +
       this.lsbHex(H1) +
@@ -143,16 +147,19 @@ export class CustomSha1 {
   }
 
   /**
-   * @param n
-   * @param s
+   * @param {number} n
+   * @param {number} s
+   * @returns {number}
    */
-  rotateLeft(n: number, s: number) {
+  rotateLeft(n: number, s: number): number {
     let t4 = (n << s) | (n >>> (32 - s));
+
     return t4;
   }
 
   /**
-   * @param val
+   * @param {number} val
+   * @returns {string}
    */
   lsbHex(val: number): string {
     let str: string = "";
@@ -170,9 +177,10 @@ export class CustomSha1 {
   }
 
   /**
-   * @param val
+   * @param {number} val
+   * @returns {string}
    */
-  cvtHex(val: number) {
+  cvtHex(val: number): string {
     let str: string = "";
     let i: number;
     let v: number;
@@ -186,9 +194,10 @@ export class CustomSha1 {
   }
 
   /**
-   * @param string
+   * @param {string} string
+   * @returns {string}
    */
-  utf8Encode(string: string) {
+  utf8Encode(string: string): string {
     string = string.replace(/\r\n/g, "\n");
     let utfText: string = "";
 

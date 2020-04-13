@@ -6,8 +6,8 @@ test("Authentication", () => {
     tranKey: "ABCD1234",
     auth: {
       seed: "2016-10-26T21:37:00+00:00",
-      nonce: "ifYEPnAcJbpDVR1t"
-    }
+      nonce: "ifYEPnAcJbpDVR1t",
+    },
   });
 
   let data = auth.toObject();
