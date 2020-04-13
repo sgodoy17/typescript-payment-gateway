@@ -2,98 +2,57 @@ import { CollectRequest } from "../../src/entities/CollectRequest";
 
 test("testItParsesCorrectlyACollectWithCredit", () => {
   let data: any = {
-    locale: "es_CO",
     instrument: {
       card: {
         number: "4111111111111111",
         expirationMonth: "12",
         expirationYear: "23",
         cvv: "123",
-      },
-    },
-    payer: {
-      name: "Cassie",
-      surname: "Walsh",
-      email: "ance04@lockman.com",
-      document: "1040035020",
-      documentType: "CC",
-      mobile: "+573015676565",
-      company: "Enterdev S.A.S",
-      address: {
-        street: "64880 Herman Shores",
-        city: "West Sophiamouth",
-        state: "Antioquia",
-        postalCode: "36950-5136",
-        country: "US",
-        phone: "+57770-649-4858 x713",
+        installments: 12,
       },
     },
     payment: {
-      reference: "TEST_20200408",
-      description: "Minus ipsu.",
+      reference: "123123",
+      description: "IVR Credit Card",
       amount: {
+        currency: "COP",
+        total: "432600.00",
         taxes: [
           {
-            kind: "ice",
-            amount: 3.6,
-          },
-          {
             kind: "valueAddedTax",
-            amount: 5.7,
+            amount: "0.00",
+            base: 0,
           },
         ],
-        details: [
-          {
-            kind: "shipping",
-            amount: 1.5,
-          },
-          {
-            kind: "tip",
-            amount: 1.5,
-          },
-          {
-            kind: "subtotal",
-            amount: 30,
-          },
-        ],
-        currency: "USD",
-        total: 42.3,
       },
-      items: [
-        {
-          sku: 22449,
-          name: "Voluptate dignissimos.",
-          category: "physical",
-          qty: 1,
-          price: 30,
-          tax: 5.7,
-        },
-      ],
-      recurring: {
-        periodicity: "D",
-        interval: 7,
-        nextPayment: "2020-04-10",
-        maxPeriods: 4,
-        notificationUrl: "https://dnetix.co/ping/recurring_notification",
+    },
+    locale: "es_CO",
+    payer: {
+      documentType: "CC",
+      document: "1035435141",
+      name: "Jessica",
+      surname: "Brandt",
+      email: "test@test.com",
+      address: {
+        street: "",
+        city: "Madellin",
+        state: "Antioquia",
+        postalCode: null,
+        country: "CO",
+        phone: "+5745990766",
       },
-      shipping: {
-        name: "Helen Kling",
-        surname: "Hand",
-        email: "kathleen.von@yahoo.com",
-        documentType: "CC",
-        document: "1602634851",
-        mobile: "3006108300",
-        address: {
-          street: "65914 Cornell Junction Apt. 607",
-          city: "Kuvalismouth",
-          state: "Antioquia",
-          postalCode: "22370-5673",
-          country: "CO",
-          phone: "702-857-0919 x0881",
-        },
+      mobile: "+573014565656",
+    },
+    fields: [
+      {
+        keyword: "Redeem Code",
+        value: 148352,
+        displayOn: "payment",
       },
-      allowPartial: false,
-      subscribe: false,
+    ],
+    additional: {
+      test_1: "test_1_data_json",
+      test_2: "test_2_data_json",
     },
   };
 

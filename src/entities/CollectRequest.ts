@@ -2,6 +2,7 @@ import { Entity } from "../contracts/Entity";
 import { Payment } from "./Payment";
 import { Person } from "./Person";
 import { Instrument } from "./Instrument";
+import { NameValuePair } from "./NameValuePair";
 
 /**
  * @class
@@ -36,6 +37,11 @@ export class CollectRequest extends Entity {
   /**
    * @type {any}
    */
+  protected fields: any;
+
+  /**
+   * @type {any}
+   */
   protected additional: any;
 
   /**
@@ -53,6 +59,9 @@ export class CollectRequest extends Entity {
       : null;
     this.instrument = data.hasOwnProperty("instrument")
       ? new Instrument(data.instrument)
+      : null;
+    this.fields = data.hasOwnProperty("fields")
+      ? this.setFields(data.fields)
       : null;
     this.additional = data.hasOwnProperty("additional")
       ? data.additional
@@ -97,8 +106,60 @@ export class CollectRequest extends Entity {
   /**
    * @returns {any}
    */
+  getFields(): any {
+    return this.fields;
+  }
+
+  /**
+   * @returns {any}
+   */
   getAdditional(): any {
     return this.additional;
+  }
+
+  /**
+   * @param {any} fields
+   * @returns {any}
+   */
+  setFields(fields: any): any {
+    let result: any = [];
+
+    fields.forEach((field: any) => {
+      field = new NameValuePair(field);
+      result.push(field);
+    });
+
+    return result;
+  }
+
+  /**
+   * @returns {any}
+   */
+  fieldsToArray(): any {
+    if (this.getFields()) {
+      let fields: any = [];
+
+      this.getFields().forEach((field: any) => {
+        fields.push(field instanceof NameValuePair ? field.toObject() : null);
+      });
+
+      return fields;
+    }
+
+    return null;
+  }
+
+  /**
+   * @param {any} data
+   */
+  addField(data: any): void {
+    if (data instanceof Object) {
+      data = new NameValuePair(data);
+    }
+
+    if (data instanceof NameValuePair) {
+      this.fields.push(data);
+    }
   }
 
   /**
@@ -111,6 +172,7 @@ export class CollectRequest extends Entity {
       buyer: this.getBuyer() ? this.getBuyer().toObject() : null,
       payment: this.getPayment() ? this.getPayment().toObject() : null,
       instrument: this.getInstrument() ? this.getInstrument().toObject() : null,
+      fields: this.fieldsToArray(),
       additional: this.getAdditional(),
     });
   }

@@ -1,14 +1,14 @@
 /**
- * Interface HasFields.
+ * @instance
  */
 export interface HasFields {
   /**
-   * @return any
+   * @returns {any}
    */
   getFields(): any;
 
   /**
-   * @return any
+   * @returns {any}
    */
-  fieldsToObject(): any;
+  fieldsToArray(): any;
 }
