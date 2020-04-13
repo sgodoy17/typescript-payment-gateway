@@ -52,7 +52,7 @@ export class RestCarrier {
   buildAuth(config: any): Object {
     let auth = new Authentication(config);
 
-    return auth.asObject();
+    return auth.toObject();
   }
 
   buildPayment(payment: any): Object {

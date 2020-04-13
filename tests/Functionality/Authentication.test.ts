@@ -10,7 +10,7 @@ test("Authentication", () => {
     }
   });
 
-  let data = auth.asObject();
+  let data = auth.toObject();
 
   expect(data.login).toEqual("login");
   expect(data.tranKey).toEqual("NDlpEEAIe8sbKZ6mGWQrZwbyBB62J1LcyP/a/o7LRqY=");

@@ -2,13 +2,13 @@ import { CustomSha1 } from "./CustomSha1";
 import { CustomSha256 } from "./CustomSha256";
 
 /**
- * Class CustomCrypto.
+ * @class
  */
 export class CustomCrypto {
   /**
-   * @param type
-   * @param text
-   * @param encoded
+   * @param {string} type
+   * @param {string} text
+   * @param {boolean} encoded
    */
   hash(type: string, text: string, encoded: boolean = true): string {
     let crypto: any;

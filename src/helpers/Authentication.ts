@@ -1,20 +1,42 @@
 import { CustomCrypto } from "./CustomCrypto";
 
 /**
- * Class Authentication.
+ * @class
  */
 export class Authentication {
+  /**
+   * @type {string}
+   */
   private login: string;
+
+  /**
+   * @type {string}
+   */
   private tranKey: string;
+
+  /**
+   * @type {any}
+   */
   private auth: any;
+
+  /**
+   * @type {boolean}
+   */
   private override: boolean = false;
+
+  /**
+   * @type {string}
+   */
   private type: string = "full";
+
+  /**
+   * @type {any}
+   */
   private additional: any;
 
   /**
-   * Authentication constructor.
-   *
-   * @param config
+   * @constructor
+   * @param {any} config
    */
   constructor(config: any) {
     if (
@@ -59,7 +81,7 @@ export class Authentication {
   }
 
   /**
-   * @return string
+   * @returns {string}
    */
   getSeed(): string {
     if (this.auth) {
@@ -70,8 +92,8 @@ export class Authentication {
   }
 
   /**
-   * @param encoded
-   * @return string
+   * @param {boolean} encoded
+   * @returns {string}
    */
   getNonce(encoded: boolean = true): string {
     let nonce: any;
@@ -92,39 +114,37 @@ export class Authentication {
   }
 
   /**
-   * @return string
+   * @returns {string}
    */
   getLogin(): string {
     return this.login;
   }
 
   /**
-   * @return string
+   * @returns {string}
    */
   getTranKey(): string {
     return this.tranKey;
   }
 
   /**
-   * @return any
+   * @returns {any}
    */
   getAdditional(): any {
     return this.additional;
   }
 
   /**
-   * @param additional
-   * @return this
+   * @param {any} additional
+   * @returns {void}
    */
-  setAdditional(additional: any): this {
+  setAdditional(additional: any): void {
     this.additional = additional;
-
-    return this;
   }
 
   /**
-   * @param encoded
-   * @return string
+   * @param {boolean} encoded
+   * @returns {string}
    */
   digest(encoded: boolean = true): string {
     let digest: string;
@@ -147,23 +167,21 @@ export class Authentication {
   }
 
   /**
-   * @return this
+   * @returns {void}
    */
-  generate(): this {
+  generate(): void {
     if (!this.override) {
       this.auth = {
         seed: this.getSeed(),
         nonce: this.getNonce()
       };
     }
-
-    return this;
   }
 
   /**
-   * @return any
+   * @returns {any}
    */
-  asObject(): any {
+  toObject(): any {
     return {
       login: this.getLogin(),
       tranKey: this.digest(),
