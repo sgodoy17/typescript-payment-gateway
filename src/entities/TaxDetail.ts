@@ -29,7 +29,7 @@ export class TaxDetail extends Entity {
 
     this.kind = data.hasOwnProperty("kind") ? data.kind : null;
     this.amount = data.hasOwnProperty("amount") ? data.amount : null;
-    this.base = data.hasOwnProperty("base") ? data.base :null;
+    this.base = data.hasOwnProperty("base") ? data.base : null;
   }
 
   /**

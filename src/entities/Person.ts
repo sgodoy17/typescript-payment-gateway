@@ -51,7 +51,7 @@ export class Person extends Entity {
    * @constructor
    * @param {any} data
    */
-  constructor(data: any = []) {
+  constructor(data: any = {}) {
     super();
 
     this.document = data.hasOwnProperty("document") ? data.document : null;

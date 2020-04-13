@@ -125,7 +125,7 @@ export class Card extends Entity {
     return this.arrayFilter({
       name: this.getName(),
       number: this.getNumber(),
-      ccv: this.getCvv(),
+      cvv: this.getCvv(),
       expirationMonth: this.getExpirationMonth(),
       expirationYear: this.getExpirationYear(),
       installments: this.getInstallments(),

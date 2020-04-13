@@ -9,6 +9,7 @@ test("testItParsesCorrectlyACollectWithCredit", () => {
         expirationYear: "23",
         cvv: "123",
         installments: 12,
+        kind: "C",
       },
     },
     payment: {
@@ -21,7 +22,6 @@ test("testItParsesCorrectlyACollectWithCredit", () => {
           {
             kind: "valueAddedTax",
             amount: "0.00",
-            base: 0,
           },
         ],
       },
@@ -33,30 +33,14 @@ test("testItParsesCorrectlyACollectWithCredit", () => {
       name: "Jessica",
       surname: "Brandt",
       email: "test@test.com",
-      address: {
-        street: "",
-        city: "Madellin",
-        state: "Antioquia",
-        postalCode: null,
-        country: "CO",
-        phone: "+5745990766",
-      },
-      mobile: "+573014565656",
-    },
-    fields: [
-      {
-        keyword: "Redeem Code",
-        value: 148352,
-        displayOn: "payment",
-      },
-    ],
-    additional: {
-      test_1: "test_1_data_json",
-      test_2: "test_2_data_json",
     },
   };
 
   let request = new CollectRequest(data);
 
-  console.log(JSON.stringify(request.toObject(), null, 2));
+  expect(data.instrument.card.number).toEqual(
+    request.getInstrument().getCard().getNumber()
+  );
+  expect(data.instrument).toEqual(request.getInstrument().toObject());
+  expect(data).toEqual(request.toObject());
 });
