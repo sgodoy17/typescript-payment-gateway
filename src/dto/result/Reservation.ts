@@ -4,16 +4,54 @@ import { PassengerAssociationCollection } from "./PassengerAssociationCollection
 import { AirlineFareCollection } from "./AirlineFareCollection";
 import { PriceQuoteCollection } from "./PriceQuoteCollection";
 
+/**
+ * @class
+ */
 export class Reservation {
+  /**
+   * @type {string}
+   */
   public locator: string;
+
+  /**
+   * @type {string}
+   */
   public route: string;
+
+  /**
+   * @type {SegmentCollection}
+   */
   public segments: SegmentCollection;
+
+  /**
+   * @type {PassengerCollection}
+   */
   public passengers: PassengerCollection;
+
+  /**
+   * @type {PassengerAssociationCollection}
+   */
   public passengerAssociations: PassengerAssociationCollection;
+
+  /**
+   * @type {AirlineFareCollection}
+   */
   public airlineFares: AirlineFareCollection;
+
+  /**
+   * @type {PriceQuoteCollection}
+   */
   public priceQuotes: PriceQuoteCollection;
+
+  /**
+   * @type {Object}
+   */
   public rawResponse: Object;
 
+  /**
+   * @constructor
+   * @param {any} data
+   */
   constructor(data: any) {
     this.locator = data.locator;
     this.route = data.route;
@@ -25,6 +63,10 @@ export class Reservation {
     this.rawResponse = data.rawResponse;
   }
 
+  /**
+   * @param {any} data
+   * @returns {Reservation}
+   */
   static fromResponse(data: any): Reservation {
     return new this({
       locator: data.locator,

@@ -1,12 +1,26 @@
 import { Segment } from "./Segment";
 
+/**
+ * @class
+ */
 export class SegmentCollection {
-  public collection: SegmentCollection;
+  /**
+   * @type {Array<Segment>}
+   */
+  public collection: Array<Segment>;
 
+  /**
+   * @constructor
+   * @param {any} data
+   */
   constructor(data: any = {}) {
     this.collection = data.collection;
   }
 
+  /**
+   * @param {any} data
+   * @returns {SegmentCollection}
+   */
   static fromResponse(data: any): SegmentCollection {
     let collection: any = [];
 

@@ -1,12 +1,34 @@
 import { Money } from "./Money";
 import { TaxesCollection } from "./TaxesCollection";
 
+/**
+ * @class
+ */
 export class Fare {
+  /**
+   * @type {Money}
+   */
   public baseFare: Money;
+
+  /**
+   * @type {Money}
+   */
   public totalTax: Money;
+
+  /**
+   * @type {Money}
+   */
   public totalFare: Money;
+
+  /**
+   * @type {TaxesCollection}
+   */
   public taxesCollection: TaxesCollection;
 
+  /**
+   * @constructor
+   * @param {any} data
+   */
   constructor(data: any = {}) {
     this.baseFare = data.baseFare;
     this.totalTax = data.totalTax;
@@ -14,6 +36,10 @@ export class Fare {
     this.taxesCollection = data.taxesCollection;
   }
 
+  /**
+   * @param {any} data
+   * @returns {Fare}
+   */
   static fromResponse(data: any): Fare {
     return new this({
       baseFare: new Money(data.base_fare),

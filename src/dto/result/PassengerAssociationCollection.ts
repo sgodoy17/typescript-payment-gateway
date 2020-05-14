@@ -4,13 +4,27 @@ import { PassengerGroup } from "../../entities/PassengerGroup";
 import { PassengerCollection } from "./PassengerCollection";
 import { PassengerGroupCollection } from "../../entities/PassengerGroupCollection";
 
+/**
+ * @class
+ */
 export class PassengerAssociationCollection {
+  /**
+   * @type {Array<PassengerAssociation>}
+   */
   public collection: Array<PassengerAssociation>;
 
+  /**
+   * @constructor
+   * @param {any} data
+   */
   constructor(data: any = {}) {
     this.collection = data.collection;
   }
 
+  /**
+   * @param {any} data
+   * @returns {PassengerAssociationCollection}
+   */
   static fromResponse(data: any): PassengerAssociationCollection {
     let collection: any = [];
 
@@ -21,6 +35,9 @@ export class PassengerAssociationCollection {
     return new this({ collection });
   }
 
+  /**
+   * @returns {PassengerGroupCollection}
+   */
   groupByAirline(): PassengerGroupCollection {
     let groupedResults = new Map();
 

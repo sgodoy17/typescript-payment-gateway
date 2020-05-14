@@ -1,12 +1,26 @@
 import { PQPassenger } from "./PQPassenger";
 
+/**
+ * @class
+ */
 export class PQPassengerCollection {
-  public collection: PQPassengerCollection;
+  /**
+   * @type {Array<PQPassenger>}
+   */
+  public collection: Array<PQPassenger>;
 
+  /**
+   * @constructor
+   * @param {any} data
+   */
   constructor(data: any = {}) {
     this.collection = data.collection;
   }
 
+  /**
+   * @param {any} data
+   * @returns {PQPassengerCollection}
+   */
   static fromResponse(data: any): PQPassengerCollection {
     let collection: any = [];
 

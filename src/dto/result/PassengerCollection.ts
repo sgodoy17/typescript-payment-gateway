@@ -1,12 +1,26 @@
 import { Passenger } from "./Passenger";
 
+/**
+ * @class
+ */
 export class PassengerCollection {
+  /**
+   * @type {Array<Passenger>}
+   */
   protected collection: Array<Passenger>;
 
+  /**
+   * @constructor
+   * @param {any} data
+   */
   constructor(data: any = {}) {
     this.collection = data.collection;
   }
 
+  /**
+   * @param {any} data
+   * @returns {PassengerCollection}
+   */
   static fromResponse(data: any): PassengerCollection {
     let collection: any = [];
 
@@ -17,6 +31,9 @@ export class PassengerCollection {
     return new this({ collection });
   }
 
+  /**
+   * @returns {any}
+   */
   first(): any {
     let result: any = [];
 
