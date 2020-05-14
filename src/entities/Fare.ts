@@ -1,90 +1,60 @@
-import { Entity } from "../contracts/Entity";
-import { Money } from "./Money";
+import { Fare as FareDTO } from "../dto/result/Fare";
+import { Money } from "../dto/result/Money";
 import { TaxesCollection } from "./TaxesCollection";
 
-/**
- * @class
- * @extends {Entity}
- */
-export class Fare extends Entity {
-  /**
-   * @type {any}
-   */
-  protected baseFare: any;
+export class Fare {
+  protected baseFare: Money;
+  protected totalTax: Money;
+  protected totalFare: Money;
+  protected taxesCollection: TaxesCollection;
 
-  /**
-   * @type {any}
-   */
-  protected totalTax: any;
-
-  /**
-   * @type {any}
-   */
-  protected totalFare: any;
-
-  /**
-   * @type {any}
-   */
-  protected taxesCollection: any;
-
-  /**
-   * @constructor
-   * @param {any} data
-   */
-  constructor(data: any = {}) {
-    super();
-
-    this.baseFare = data.hasOwnProperty("base_fare")
-      ? new Money(data.base_fare)
-      : null;
-    this.totalTax = data.hasOwnProperty("total_tax")
-      ? new Money(data.total_tax)
-      : null;
-    this.totalFare = data.hasOwnProperty("total_fare")
-      ? new Money(data.total_fare)
-      : null;
-    this.taxesCollection = data.hasOwnProperty("taxes_collection")
-      ? new TaxesCollection(data.taxes_collection)
-      : null;
+  constructor(
+    baseFare: Money,
+    totalTax: Money,
+    totalFare: Money,
+    taxesCollection: TaxesCollection
+  ) {
+    this.baseFare = baseFare;
+    this.totalTax = totalTax;
+    this.totalFare = totalFare;
+    this.taxesCollection = taxesCollection;
   }
 
-  /**
-   * @returns {any}
-   */
-  getBaseFare(): any {
+  getBaseFare(): Money {
     return this.baseFare;
   }
 
-  /**
-   * @returns {any}
-   */
-  getTotalTax(): any {
+  getTotalTax(): Money {
     return this.totalTax;
   }
 
-  /**
-   * @returns {any}
-   */
-  getTotalFare(): any {
+  getTotalFare(): Money {
     return this.totalFare;
   }
 
-  /**
-   * @returns {any}
-   */
-  getTaxesCollection(): any {
+  getTaxesCollection(): TaxesCollection {
     return this.taxesCollection;
   }
 
-  /**
-   * @returns {any}
-   */
-  toObject(): any {
-    return this.arrayFilter({
-      baseFare: this.getBaseFare().toObject(),
-      totalTax: this.getTotalTax().toObject(),
-      totalFare: this.getTotalFare().toObject(),
-      taxesCollection: this.getTaxesCollection().toObject(),
-    });
+  static fromDTO(fare: FareDTO): Fare {
+    return new this(
+      fare.baseFare,
+      fare.totalTax,
+      fare.totalFare,
+      TaxesCollection.fromDTO(fare.taxesCollection)
+    );
+  }
+
+  add(add: Fare): Fare {
+    return new Fare(
+      this.baseFare.add(add.getBaseFare()),
+      this.totalTax.add(add.getTotalTax()),
+      this.totalFare.add(add.getTotalFare()),
+      this.taxesCollection.add(add.getTaxesCollection())
+    );
+  }
+
+  addDTO(fare: FareDTO): Fare {
+    return this.add(Fare.fromDTO(fare));
   }
 }

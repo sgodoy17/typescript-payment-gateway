@@ -1,55 +1,35 @@
-import { Entity } from "../contracts/Entity";
-import { Money } from "./Money";
+import { Money } from "../dto/result/Money";
+import { TaxesCollection as TaxesCollectionDTO } from "../dto/result/TaxesCollection";
 
-/**
- * @class
- * @extends {Entity}
- */
-export class TaxesCollection extends Entity {
-  /**
-   * @type {any}
-   */
-  protected iva: any;
+export class TaxesCollection {
+  protected vat: Money;
+  protected otherTaxes: Money;
 
-  /**
-   * @type {any}
-   */
-  protected otherTaxes: any;
-
-  /**
-   * @constructor
-   * @param {any} data
-   */
-  constructor(data: any = {}) {
-    super();
-
-    this.iva = data.hasOwnProperty("iva") ? new Money(data.iva) : null;
-    this.otherTaxes = data.hasOwnProperty("other_taxes")
-      ? new Money(data.other_taxes)
-      : null;
+  constructor(iva: Money, otherTaxes: Money) {
+    this.vat = iva;
+    this.otherTaxes = otherTaxes;
   }
 
-  /**
-   * @returns {any}
-   */
-  getIva(): any {
-    return this.iva;
+  getVAT(): Money {
+    return this.vat;
   }
 
-  /**
-   * @returns {any}
-   */
-  getOtherTaxes(): any {
+  getIVA(): Money {
+    return this.getVAT();
+  }
+
+  getOtherTaxes(): Money {
     return this.otherTaxes;
   }
 
-  /**
-   * @returns {any}
-   */
-  toObject(): any {
-    return this.arrayFilter({
-      iva: this.getIva().toObject(),
-      otherTaxes: this.getOtherTaxes().toObject(),
-    });
+  static fromDTO(taxesCollection: TaxesCollectionDTO): TaxesCollection {
+    return new this(taxesCollection.iva, taxesCollection.otherTaxes);
+  }
+
+  add(add: TaxesCollection): TaxesCollection {
+    return new TaxesCollection(
+      this.vat.add(add.vat),
+      this.otherTaxes.add(add.otherTaxes)
+    );
   }
 }

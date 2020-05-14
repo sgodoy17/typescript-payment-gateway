@@ -1,7 +1,7 @@
 import { Passenger } from "./Passenger";
 
 export class PassengerCollection {
-  public collection: PassengerCollection;
+  protected collection: Array<Passenger>;
 
   constructor(data: any = {}) {
     this.collection = data.collection;
@@ -15,5 +15,17 @@ export class PassengerCollection {
     });
 
     return new this({ collection });
+  }
+
+  first(): any {
+    let result: any = [];
+
+    this.collection.forEach((item: Passenger, index) => {
+      if (index == 0) {
+        result = item;
+      }
+    });
+
+    return result;
   }
 }

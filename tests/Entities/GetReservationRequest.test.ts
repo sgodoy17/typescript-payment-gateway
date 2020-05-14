@@ -1,6 +1,6 @@
-//import { Reservation } from "../../src/entities/Reservation";
-
 import { Reservation } from "../../src/dto/result/Reservation";
+import { PassengerCollection } from "../../src/dto/result/PassengerCollection";
+import { Passenger } from "../../src/dto/result/Passenger";
 
 test("testItCanParseReservationData", () => {
   let data = {
@@ -271,9 +271,126 @@ test("testItCanParseReservationData", () => {
     ],
   };
 
-  //let response = new Reservation(data);
   let response = Reservation.fromResponse(data);
 
-  console.log(response.passengerAssociations.groupByAirline());
-  //console.log(JSON.stringify(response, null, 2));
+  let airlineGroups = response.passengerAssociations.groupByAirline();
+
+  let count = 0;
+
+  for (let item in airlineGroups["collection"]) {
+    if (airlineGroups["collection"].hasOwnProperty(item)) {
+      count++;
+    }
+  }
+
+  expect(count).toEqual(2);
+
+  expect(airlineGroups["collection"][0].getPassengers()).toBeInstanceOf(
+    PassengerCollection
+  );
+  expect(airlineGroups["collection"][0].getPassengers().first()).toBeInstanceOf(
+    Passenger
+  );
+
+  expect("7860000").toEqual(
+    airlineGroups.getByAirline("LA").getFare().getBaseFare().getAmount()
+  );
+  expect("COP").toEqual(
+    airlineGroups.getByAirline("LA").getFare().getBaseFare().getCurrency()
+  );
+  expect("4754000").toEqual(
+    airlineGroups.getByAirline("LA").getFare().getTotalTax().getAmount()
+  );
+  expect("COP").toEqual(
+    airlineGroups.getByAirline("LA").getFare().getTotalTax().getCurrency()
+  );
+  expect("12614000").toEqual(
+    airlineGroups.getByAirline("LA").getFare().getTotalFare().getAmount()
+  );
+  expect("COP").toEqual(
+    airlineGroups.getByAirline("LA").getFare().getTotalFare().getCurrency()
+  );
+  expect("1494000").toEqual(
+    airlineGroups
+      .getByAirline("LA")
+      .getFare()
+      .getTaxesCollection()
+      .getIVA()
+      .getAmount()
+  );
+  expect("COP").toEqual(
+    airlineGroups
+      .getByAirline("LA")
+      .getFare()
+      .getTaxesCollection()
+      .getIVA()
+      .getCurrency()
+  );
+  expect("3260000").toEqual(
+    airlineGroups
+      .getByAirline("LA")
+      .getFare()
+      .getTaxesCollection()
+      .getOtherTaxes()
+      .getAmount()
+  );
+  expect("COP").toEqual(
+    airlineGroups
+      .getByAirline("LA")
+      .getFare()
+      .getTaxesCollection()
+      .getOtherTaxes()
+      .getCurrency()
+  );
+
+  expect("4530000").toEqual(
+    airlineGroups.getByAirline("AV").getFare().getBaseFare().getAmount()
+  );
+  expect("COP").toEqual(
+    airlineGroups.getByAirline("AV").getFare().getBaseFare().getCurrency()
+  );
+  expect("2451000").toEqual(
+    airlineGroups.getByAirline("AV").getFare().getTotalTax().getAmount()
+  );
+  expect("COP").toEqual(
+    airlineGroups.getByAirline("AV").getFare().getTotalTax().getCurrency()
+  );
+  expect("6981000").toEqual(
+    airlineGroups.getByAirline("AV").getFare().getTotalFare().getAmount()
+  );
+  expect("COP").toEqual(
+    airlineGroups.getByAirline("AV").getFare().getTotalFare().getCurrency()
+  );
+  expect("861000").toEqual(
+    airlineGroups
+      .getByAirline("AV")
+      .getFare()
+      .getTaxesCollection()
+      .getIVA()
+      .getAmount()
+  );
+  expect("COP").toEqual(
+    airlineGroups
+      .getByAirline("AV")
+      .getFare()
+      .getTaxesCollection()
+      .getIVA()
+      .getCurrency()
+  );
+  expect("1590000").toEqual(
+    airlineGroups
+      .getByAirline("AV")
+      .getFare()
+      .getTaxesCollection()
+      .getOtherTaxes()
+      .getAmount()
+  );
+  expect("COP").toEqual(
+    airlineGroups
+      .getByAirline("AV")
+      .getFare()
+      .getTaxesCollection()
+      .getOtherTaxes()
+      .getCurrency()
+  );
 });
