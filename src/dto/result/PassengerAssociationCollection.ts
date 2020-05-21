@@ -39,7 +39,7 @@ export class PassengerAssociationCollection {
    * @returns {PassengerGroupCollection}
    */
   groupByAirline(): PassengerGroupCollection {
-    let groupedResults = new Map();
+    let groupedResults: any = new Map();
 
     this.collection.forEach((item: any) => {
       let groupBy = item.priceQuote.airlineCode;
@@ -84,5 +84,44 @@ export class PassengerAssociationCollection {
     });
 
     return new PassengerGroupCollection({ collection: results });
+  }
+
+  /**
+   * @returns {PassengerGroupCollection}
+   */
+  groupByPassenger(): PassengerGroupCollection {
+    let results: Array<PassengerGroup> = [];
+
+    this.collection.forEach((passengerAssociation: PassengerAssociation) => {
+      let passengersUids: any = [];
+      passengersUids.push(passengerAssociation.uid)
+
+      results.push(
+        new PassengerGroup(
+          FareEntity.fromDTO(passengerAssociation.priceQuote.fare),
+          passengerAssociation.priceQuote.airlineCode,
+          passengersUids,
+          new PassengerCollection({ collection: [passengerAssociation.passenger] })
+        )
+      );
+    });
+
+    return new PassengerGroupCollection({ collection: results });
+  }
+
+  /**
+   * @param {string} uid
+   * @returns {PassengerAssociation}
+   */
+  getByUid(uid: string): PassengerAssociation {
+    let result: any = [];
+
+    this.collection.forEach((passengerAssociation: any) => {
+      if (passengerAssociation.uid === uid) {
+        result = passengerAssociation;
+      }
+    });
+
+    return result;
   }
 }

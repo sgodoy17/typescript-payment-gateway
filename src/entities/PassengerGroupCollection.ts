@@ -34,17 +34,18 @@ export class PassengerGroupCollection {
   }
 
   /**
-   *
    * @param {string} uid
-   * @returns {PassengerGroup | null}
+   * @returns {PassengerGroup}
    */
-  getByUid(uid: string): PassengerGroup | null {
+  getByUid(uid: string): PassengerGroup {
+    let result: any = [];
+
     this.collection.forEach((item: any) => {
       if (item.getPassengerUids().includes(uid)) {
-        return item;
+        result = item;
       }
     });
 
-    return null;
+    return result;
   }
 }
