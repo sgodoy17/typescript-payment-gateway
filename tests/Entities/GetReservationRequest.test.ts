@@ -668,8 +668,6 @@ test("canSeeReservationByPassengerAssociation", () => {
 
   let passengerGroups = response.passengerAssociations.groupByPassenger();
 
-  console.log(passengerGroups);
-
   expect(passengerGroups["collection"][0].getPassengers()).toBeInstanceOf(
     PassengerCollection
   );
